@@ -1,7 +1,7 @@
 const Total = (props) =>{
     return(
         <div>
-            <p>Number of exercises {props.exercises.reduce((partial_sum, a)=>partial_sum + a)}</p>
+            <p>Number of exercises {props.course.parts.map((pair)=>(pair.exercises)).reduce((partialsum, a)=>(partialsum+a))}</p>
         </div>
     );
 }
