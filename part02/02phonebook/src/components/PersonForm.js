@@ -13,8 +13,7 @@ const PersonForm = (props) => {
                     props.inputs.map((inputfield) => {
                         return(
                             <div key={inputfield.id}>
-                                {inputfield.label}: 
-                                <input 
+                                {inputfield.label}: <input 
                                     value={inputfield.entry}
                                     onChange={
                                         (event) =>inputfield.entryFunc(event.target.value)
