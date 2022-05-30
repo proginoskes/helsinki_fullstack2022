@@ -7,6 +7,8 @@ const generateRandomID = () =>{
   return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
 }
 
+const formIDs = [generateRandomID(), generateRandomID()];
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '040-123456', id: generateRandomID() },
@@ -17,6 +19,7 @@ const App = () => {
   const [newName, setNewName] = useState('...')
   const [newNumber, setNewNumber] = useState('...');
   const [newTerm, setNewSearch] = useState('');
+
 
   const handleTermChange = (event) => {
     setNewSearch(event.target.value);
@@ -47,13 +50,13 @@ const App = () => {
             label: "name",
             entry: newName,
             entryFunc: setNewName,
-            id: 1
+            id: formIDs[0]
           },
           {
             label: "number",
             entry: newNumber,
             entryFunc: setNewNumber,
-            id: 2
+            id: formIDs[1]
           }
         ]}
       />
