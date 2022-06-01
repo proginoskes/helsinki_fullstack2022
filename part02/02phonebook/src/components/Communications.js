@@ -1,9 +1,9 @@
 
 import axios from 'axios';
-const server_url = 'http://localhost:3005';
+const server_url = '/api/persons';
 
 const getAll = () => {
-    const request = axios.get(`${server_url}/persons`);
+    const request = axios.get(`${server_url}`);
     return request
       .then(response => {
         return response.data
@@ -11,7 +11,7 @@ const getAll = () => {
   }
 
   const addRecord = (newRecord) => {
-    const request = axios.post(`${server_url}/persons`, newRecord);
+    const request = axios.post(`${server_url}`, newRecord);
     return request
       .then(response => {
         return response.data
@@ -19,7 +19,7 @@ const getAll = () => {
   }
 
   const deleteRecord = (id) => {
-      const request = axios.delete(`${server_url}/persons/${id}`);
+      const request = axios.delete(`${server_url}/${id}`);
       return request
         .then(response => {
           return response.data
@@ -27,7 +27,7 @@ const getAll = () => {
   }
 
   const updateRecord = (id, newrec) => {
-      const request = axios.put(`${server_url}/persons/${id}`, newrec);
+      const request = axios.put(`${server_url}/${id}`, newrec);
       return request
         .then(response => {
           return response.data
