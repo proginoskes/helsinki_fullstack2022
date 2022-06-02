@@ -4,7 +4,7 @@ import Persons from './components/Persons';
 import Filter from './components/Filter';
 import Notification from './components/Notification';
 
-import commService from './components/Communications'
+import personService from './components/Communications'
 
 import './index.css'
 
@@ -24,10 +24,10 @@ const App = () => {
 
   
   const effectHook = () =>{
-    commService.getAll()
+    personService.getAll()
       .then(phoneBook => setPersons(phoneBook))
-      .catch(() => {
-        notify(`Could not get data from server.`)
+      .catch((error) => {
+        notify(error.response.data)
       })
   }
   useEffect(effectHook, [])
@@ -48,14 +48,14 @@ const App = () => {
   const handleDelete = (id) => {
     const name = persons.find(person => person.id===id).name;
     //if(window.confirm(`Would you like to delete ${name}'s number?`)){
-    commService
+    personService
       .deleteRecord(id)
       .then(() => {
         notify(`Deleted ${name}`)
         effectHook()
       })
-      .catch(() =>{
-        notify(`Error: could not delete ${newName} from server.`)
+      .catch((error) =>{
+        notify(error.response.data)
       });
     //}
   }
@@ -63,14 +63,14 @@ const App = () => {
   const handleUpdate = (name, number) => {
     const curr_person = persons.find(person => person.name===name);
     //if(window.confirm(`Current number for ${name} is ${persons.find(person => person.name===name).number}. Would you like to update ${name}'s number to ${number}`))
-    commService
+    personService
       .updateRecord(curr_person.id, {name: name, number: number})
       .then(() => {
         notify(`Updated record for ${name}`)
         effectHook()
       })
-      .catch(() =>{
-        notify(`Error: could not update ${name} to number ${number}.`)
+      .catch((error) =>{
+        notify(error.response.data)
       });
   }
 
@@ -80,14 +80,14 @@ const App = () => {
       handleUpdate(newName, newNumber);
     }else{       
       const newRecord = {name: newName, number: newNumber};
-      commService
+      personService
         .addRecord(newRecord)
         .then(newPerson => {
           notify(`Added ${newName} with number ${newNumber}.`)
           setPersons(persons.concat(newPerson))
         })
-        .catch(() =>{
-          notify(`Error: could not add ${newName} with number ${newNumber}.`)
+        .catch((error) =>{
+          notify(error.response.data)
         })
     }
     console.log("form submitted", persons)
