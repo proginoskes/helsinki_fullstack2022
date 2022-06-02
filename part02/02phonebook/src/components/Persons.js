@@ -1,4 +1,5 @@
 const Persons = (props) => {
+    //console.log(props.persons)
     return(
         <div>
             {

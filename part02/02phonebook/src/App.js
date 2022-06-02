@@ -27,7 +27,8 @@ const App = () => {
     personService.getAll()
       .then(phoneBook => setPersons(phoneBook))
       .catch((error) => {
-        notify(error.response.data)
+        console.log(error.response.data.error)
+        notify(error.response.data.error)
       })
   }
   useEffect(effectHook, [])
@@ -55,7 +56,8 @@ const App = () => {
         effectHook()
       })
       .catch((error) =>{
-        notify(error.response.data)
+        console.log(error.response.data.error)
+        notify(error.response.data.error)
       });
     //}
   }
@@ -70,7 +72,8 @@ const App = () => {
         effectHook()
       })
       .catch((error) =>{
-        notify(error.response.data)
+        console.log(error.response.data.error)
+        notify(error.response.data.error)
       });
   }
 
@@ -87,7 +90,8 @@ const App = () => {
           setPersons(persons.concat(newPerson))
         })
         .catch((error) =>{
-          notify(error.response.data)
+          console.log(error.response.data.error)
+          notify(error.response.data.error)
         })
     }
     console.log("form submitted", persons)

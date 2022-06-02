@@ -1,13 +1,14 @@
 
 import axios from 'axios';
-const server_url = '/api/persons';
+const server_url = 'https://sleepy-reef-98505.herokuapp.com/api/persons';
 
 const getAll = () => {
     const request = axios.get(`${server_url}`);
     return request
       .then(response => {
         return response.data
-      });
+      })
+      //.catch((error)=>error);
   }
 
   const addRecord = (newRecord) => {
@@ -15,7 +16,8 @@ const getAll = () => {
     return request
       .then(response => {
         return response.data
-      });
+      })
+      //.catch((error)=>error);
   }
 
   const deleteRecord = (id) => {
@@ -23,7 +25,8 @@ const getAll = () => {
       return request
         .then(response => {
           return response.data
-        });
+        })
+        //.catch((error)=>error);
   }
 
   const updateRecord = (id, newrec) => {
@@ -31,7 +34,8 @@ const getAll = () => {
       return request
         .then(response => {
           return response.data
-        });
+        })
+        //.catch((error)=>error);
   }
 
   const commService = {
