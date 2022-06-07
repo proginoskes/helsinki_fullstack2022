@@ -4,7 +4,7 @@ import Persons from './components/Persons';
 import Filter from './components/Filter';
 import Notification from './components/Notification';
 
-import personService from './components/Communications'
+import commService from './components/Communications'
 
 import './index.css'
 
@@ -24,11 +24,10 @@ const App = () => {
 
   
   const effectHook = () =>{
-    personService.getAll()
+    commService.getAll()
       .then(phoneBook => setPersons(phoneBook))
-      .catch((error) => {
-        console.log(error.response.data.error)
-        notify(error.response.data.error)
+      .catch(() => {
+        notify(`Could not get data from server.`)
       })
   }
   useEffect(effectHook, [])
@@ -49,15 +48,14 @@ const App = () => {
   const handleDelete = (id) => {
     const name = persons.find(person => person.id===id).name;
     //if(window.confirm(`Would you like to delete ${name}'s number?`)){
-    personService
+    commService
       .deleteRecord(id)
       .then(() => {
         notify(`Deleted ${name}`)
         effectHook()
       })
-      .catch((error) =>{
-        console.log(error.response.data.error)
-        notify(error.response.data.error)
+      .catch(() =>{
+        notify(`Error: could not delete ${newName} from server.`)
       });
     //}
   }
@@ -65,15 +63,14 @@ const App = () => {
   const handleUpdate = (name, number) => {
     const curr_person = persons.find(person => person.name===name);
     //if(window.confirm(`Current number for ${name} is ${persons.find(person => person.name===name).number}. Would you like to update ${name}'s number to ${number}`))
-    personService
+    commService
       .updateRecord(curr_person.id, {name: name, number: number})
       .then(() => {
         notify(`Updated record for ${name}`)
         effectHook()
       })
-      .catch((error) =>{
-        console.log(error.response.data.error)
-        notify(error.response.data.error)
+      .catch(() =>{
+        notify(`Error: could not update ${name} to number ${number}.`)
       });
   }
 
@@ -83,15 +80,14 @@ const App = () => {
       handleUpdate(newName, newNumber);
     }else{       
       const newRecord = {name: newName, number: newNumber};
-      personService
+      commService
         .addRecord(newRecord)
         .then(newPerson => {
           notify(`Added ${newName} with number ${newNumber}.`)
           setPersons(persons.concat(newPerson))
         })
-        .catch((error) =>{
-          console.log(error.response.data.error)
-          notify(error.response.data.error)
+        .catch(() =>{
+          notify(`Error: could not add ${newName} with number ${newNumber}.`)
         })
     }
     console.log("form submitted", persons)
