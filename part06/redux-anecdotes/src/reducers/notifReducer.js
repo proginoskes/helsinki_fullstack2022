@@ -5,6 +5,8 @@ const initialNotif = {
     display: false
 }
 
+let lastTimeout = undefined
+
 const notifSlice = createSlice({
     name: 'notif',
     initialState: initialNotif,
@@ -12,7 +14,6 @@ const notifSlice = createSlice({
         showNotif (state, action) {
             state.text = action.payload
             state.display = true
-            console.log(action.payload)
             return state
         },
         hideNotif (state) {
@@ -28,7 +29,8 @@ export const { showNotif, hideNotif } = notifSlice.actions
 export const notify = (content, timeout) => {
     return async dispatch => {
         dispatch(showNotif(content))
-        setTimeout(() => {
+        clearTimeout(lastTimeout)
+        lastTimeout = setTimeout(() => {
             dispatch(hideNotif())
         }, (timeout * 1000))
     }

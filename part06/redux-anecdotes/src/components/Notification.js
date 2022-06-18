@@ -1,16 +1,15 @@
-import { useSelector } from 'react-redux'
+//import { useSelector } from 'react-redux'
 
-const Notification = () => {
-    const notification = useSelector(
-        state => {
-            return state.notif.text
-        }
-    )
-    const display = useSelector(
-        state => {
-            return state.notif.display
-        }
-    )
+import { connect } from 'react-redux'
+
+const Notification = (props) => {
+    const notification = () => {
+        return props.notif.text
+    }
+
+    const display = () => {
+        return props.notif.display
+    }
 
     const style = {
         border: 'solid',
@@ -19,12 +18,21 @@ const Notification = () => {
     }
 
     return (
-        display &&
+        display() &&
             <div style={style}>
-                {notification}
+                {notification()}
             </div>
     )
-    
 }
 
-export default Notification
+const mapStateToProps = (state) => {
+    return {
+        notif: state.notif
+    }
+}
+
+//export default Notification
+const ConnectedNotification = connect(
+    mapStateToProps
+)(Notification)
+export default ConnectedNotification
